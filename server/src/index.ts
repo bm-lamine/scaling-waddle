@@ -1,9 +1,10 @@
-import { Hono } from 'hono'
+import { Hono } from "hono";
 
-const app = new Hono()
+import authRouter from "./services/auth/auth.router";
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
-})
+const app = new Hono();
 
-export default app
+app.route("/v1/auth", authRouter);
+app.get("/", (c) => c.text("Hello Hono!"));
+
+export default app;
