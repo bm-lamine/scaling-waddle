@@ -1,4 +1,32 @@
 services:
+  server:
+    container_name: hono_server
+    build:
+      context: ./server
+      dockerfile: dockerfile
+    depends_on:
+      - postgres
+    env_file:
+      - ./server/.env
+    ports:
+      - 4321:4321
+    restart: always
+    networks:
+      - app-network
+
+  web:
+    container_name: react_client
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    ports:
+      - 5173:5173
+    restart: unless-stopped
+    depends_on:
+      - server
+    networks:
+      - app-network
+
   postgres:
     image: postgres
     container_name: postgres_container
@@ -11,6 +39,12 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
   postgres_data:
