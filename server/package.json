@@ -1,10 +1,12 @@
 {
   "name": "server",
   "scripts": {
-    "dev": "bun run --hot src/index.ts"
+    "dev": "bun run --hot src/index.ts",
+    "env:test": "bun run src/env.ts"
   },
   "dependencies": {
-    "hono": "^4.8.9"
+    "hono": "^4.8.9",
+    "zod": "^4.0.10"
   },
   "devDependencies": {
     "@types/bun": "latest"
